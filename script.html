@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecofuture Map</title>
+
+  <style>
+    body{
+      margin:0;
+      background:#e6f2ff;
+      font-family:Arial, sans-serif;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+    }
+
+    .screen{
+      width:1000px;
+      max-width:95vw;
+      position:relative;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .map-container{
+      position:relative;
+    }
+
+    .map-container img{
+      width:100%;
+      display:block;
+      border-radius:16px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .point{
+      position:absolute;
+      width:28px;
+      height:28px;
+      border:none;
+      border-radius:50%;
+      background:rgba(255,80,80,0.82);
+      box-shadow:0 0 12px rgba(255,80,80,0.8);
+      cursor:pointer;
+    }
+
+    .point:hover{
+      transform:scale(1.15);
+    }
+
+    .label{
+      position:absolute;
+      background:rgba(255,255,255,0.88);
+      padding:4px 8px;
+      border-radius:8px;
+      font-size:14px;
+    }
+
+    .scene-card{
+      background:white;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .scene-card img{
+      width:100%;
+      display:block;
+    }
+
+    .scene-content{
+      padding:24px;
+      line-height:1.7;
+      color:#222;
+    }
+
+    .scene-content h2{
+      margin-top:0;
+      margin-bottom:12px;
+    }
+
+    .scene-content p{
+      margin-bottom:16px;
+    }
+
+    .buttons{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:20px;
+    }
+
+    .buttons button{
+      border:none;
+      border-radius:10px;
+      padding:10px 16px;
+      background:#dbeafe;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .buttons button:hover{
+      background:#bfdbfe;
+    }
+
+    .note{
+      margin-top:16px;
+      padding:12px 14px;
+      background:#f3f4f6;
+      border-radius:10px;
+      color:#333;
+      display:none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MAP -->
+  <div id="mapScreen" class="screen">
+    <div class="map-container">
+      <img src="Map.png" alt="Santa Cruz Map">
+
+      <button class="point" style="top:62%; left:53%;" onclick="showScene('beachScreen')"></button>
+      <button class="point" style="top:57%; left:59%;" onclick="showScene('wharfScreen')"></button>
+      <button class="point" style="top:28%; left:25%;" onclick="showScene('cliffsScreen')"></button>
+      <button class="point" style="top:47%; left:48%;" onclick="showScene('downtownScreen')"></button>
+
+      <div class="label" style="top:66%; left:56%;">Beach</div>
+      <div class="label" style="top:61%; left:62%;">Wharf</div>
+      <div class="label" style="top:23%; left:28%;">Cliffs</div>
+      <div class="label" style="top:51%; left:51%;">Downtown</div>
+    </div>
+  </div>
+
+  <!-- BEACH -->
+  <div id="beachScreen" class="screen hidden">
+    <div class="scene-card">
+      <img src="beach.png" alt="Beach">
+      <div class="scene-content">
+        <h2>Beach — Year 0</h2>
+
+        <p>
+          The sand is warm under my feet, and the tide moves in the steady rhythm I have always known. 
+          Schools of fish shimmer in the shallows while the wind lifts easily beneath my wings. 
+          Humans wander along the shore near the boardwalk, and scraps of food collect where land meets water.
+        </p>
+
+        <p>
+          The ocean stretches outward without end, and the seasons follow a pattern that seems stable and predictable. 
+          Life here feels abundant. The cliffs, the beach, and the water have always seemed like reliable places to rest, feed, and return to again.
+        </p>
+
+        <div class="buttons">
+          <button onclick="toggleNote('beachNote')">Observe More</button>
+          <button onclick="showScene('wharfScreen')">Continue to Wharf</button>
+          <button onclick="goBack()">Back to Map</button>
+        </div>
+
+        <div id="beachNote" class="note">
+          This opening scene presents the coast as familiar and steady, before larger environmental shifts begin to reshape it.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHARF -->
+  <div id="wharfScreen" class="screen hidden">
+    <div class="scene-card">
+      <img src="wharf.png" alt="Wharf">
+      <div class="scene-content">
+        <h2>Wharf — Two Years Later</h2>
+
+        <p>
+          Two years later, the water around Santa Cruz Wharf feels different. It is warmer than I remember, and I have to circle farther before finding fish worth diving for. 
+          More humans gather on the wooden planks above, and food scraps still fall into the water, but now pieces of plastic drift slowly between the pilings with the tide.
+        </p>
+
+        <p>
+          Storms arrive at unusual times of year, and the water seems to climb higher along the shore. 
+          With fewer fish available, many birds now compete for leftovers instead of hunting naturally. 
+          The ocean still feeds us, but the changing seasons make the coast feel less certain than it once did.
+        </p>
+
+        <div class="buttons">
+          <button onclick="toggleNote('wharfNote')">Observe More</button>
+          <button onclick="showScene('cliffsScreen')">Continue to Cliffs</button>
+          <button onclick="goBack()">Back to Map</button>
+        </div>
+
+        <div id="wharfNote" class="note">
+          Warmer ocean water, plastic pollution, and changing seasonal patterns suggest how marine ecosystems become harder to predict over time.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIFFS -->
+  <div id="cliffsScreen" class="screen hidden">
+    <div class="scene-card">
+      <img src="cliffs.png" alt="Cliffs">
+      <div class="scene-content">
+        <h2>Cliffs — Five Years Later</h2>
+
+        <p>
+          Five years later, the wind along the coastal cliffs feels harsher than before. 
+          It pushes against my wings and rattles the nest I tried to build near the edge. 
+          Below me, waves crash against the rocks again and again, slowly carving the land away through erosion.
+        </p>
+
+        <p>
+          Each year the storms grow stronger. They shake the cliffside and pull pieces of rock into the sea. 
+          Standing here, I wonder if this place can still serve as a safe nesting habitat, or if it is time to leave and search elsewhere.
+        </p>
+
+        <div class="buttons">
+          <button onclick="toggleNote('cliffsNote')">Observe More</button>
+          <button onclick="showScene('downtownScreen')">Fly Inland to Downtown</button>
+          <button onclick="goBack()">Back to Map</button>
+        </div>
+
+        <div id="cliffsNote" class="note">
+          Coastal erosion and stronger storms make cliff habitats less stable, especially for birds that depend on them for nesting and shelter.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNTOWN -->
+  <div id="downtownScreen" class="screen hidden">
+    <div class="scene-card">
+      <img src="downtown.png" alt="Downtown">
+      <div class="scene-content">
+        <h2>Downtown — Inland Shift</h2>
+
+        <p>
+          After leaving the cliffs, I follow the land inland until the buildings of Downtown Santa Cruz rise higher than the trees. 
+          The streets trap warmth between concrete and glass, and the wind moves strangely here, bouncing between buildings instead of flowing freely across the coast.
+        </p>
+
+        <p>
+          The shoreline I once knew is harder to recognize. Some places where I used to nest have disappeared beneath rising water, while others have been replaced by roads and structures. 
+          To survive here, birds like me must adapt, searching for food on rooftops, parking lots, and trash bins rather than along the shore.
+        </p>
+
+        <div class="buttons">
+          <button onclick="toggleNote('downtownNote')">Observe More</button>
+          <button onclick="showScene('beachScreen')">Return to Beginning</button>
+          <button onclick="goBack()">Back to Map</button>
+        </div>
+
+        <div id="downtownNote" class="note">
+          Urban heat, habitat loss, and adaptation show how environmental change pushes both humans and nonhuman beings into new survival patterns.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showScene(sceneId){
+      document.querySelectorAll('.screen').forEach(screen=>{
+        screen.classList.add('hidden');
+      });
+      document.getElementById(sceneId).classList.remove('hidden');
+    }
+
+    function goBack(){
+      document.querySelectorAll('.screen').forEach(screen=>{
+        screen.classList.add('hidden');
+      });
+      document.getElementById('mapScreen').classList.remove('hidden');
+    }
+
+    function toggleNote(noteId){
+      const note = document.getElementById(noteId);
+      if(note.style.display === "block"){
+        note.style.display = "none";
+      } else {
+        note.style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
